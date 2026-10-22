@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hey there — can I take a picture?">
+  <title>Hey there 📸</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- SCROLL CONTAINER -->
+  <main class="scroll-container" id="scroll-container">
+
+    <!-- PAGE 1 -->
+    <section class="page" id="page-1">
+
+      <!-- Background decorative circles -->
+      <div class="bg-blob blob-1"></div>
+      <div class="bg-blob blob-2"></div>
+
+      <!-- Text at top -->
+      <div class="top-text">
+        <h1 class="headline">
+          hey there,<br>
+          can i take a<br>
+          <span class="highlight-wrap">picture..📸</span>
+        </h1>
+      </div>
+
+      <!-- Photo card -->
+      <div class="card-wrapper" id="card1">
+        <div class="card-shadow shadow-yellow"></div>
+        <div class="card-frame frame-cream">
+          <img src="photo1.jpg" alt="Camera photo" id="photo1">
+        </div>
+      </div>
+
+      <!-- Swipe up indicator -->
+      <button class="swipe-up-btn" id="swipe-btn" aria-label="Swipe up for next page">
+        <span class="swipe-label">SWIPE UP</span>
+        <div class="swipe-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        </div>
+      </button>
+
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="page" id="page-2">
+
+      <!-- Background decorative blobs -->
+      <div class="bg-blob blob-3"></div>
+      <div class="bg-blob blob-4"></div>
+
+      <!-- Full-screen photo card, no text -->
+      <div class="card-wrapper card-big" id="card2">
+        <div class="card-shadow shadow-lavender"></div>
+        <div class="card-frame frame-mint">
+          <img src="photo2.jpg" alt="Selfie photo" id="photo2">
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

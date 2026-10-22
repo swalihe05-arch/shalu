@@ -1,0 +1,326 @@
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #1a1a1a;
+  --cream: #f5ede0;
+  --yellow: #f4cf3b;
+  --lavender: #cfc5e9;
+  --mint: #b2e8d0;
+  --coral: #ffb5b0;
+  --white: #ffffff;
+  --border: 3px solid var(--ink);
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--cream);
+  font-family: 'Outfit', sans-serif;
+  color: var(--ink);
+}
+
+/* ============================================================
+   SCROLL SNAP CONTAINER
+   ============================================================ */
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  /* hide scrollbar visually */
+  scrollbar-width: none;
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   EACH FULL-SCREEN PAGE
+   ============================================================ */
+.page {
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1.5rem;
+  gap: 1.5rem;
+}
+
+/* Page 1 background */
+#page-1 {
+  background: linear-gradient(160deg, #fffbf3 0%, #f5ede0 100%);
+}
+
+/* Page 2 background */
+#page-2 {
+  background: linear-gradient(160deg, #f0f4ff 0%, #e8d8f8 100%);
+}
+
+/* ============================================================
+   DECORATIVE BACKGROUND BLOBS
+   ============================================================ */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+.blob-1 {
+  width: 280px; height: 280px;
+  background: var(--yellow);
+  top: -80px; right: -80px;
+}
+.blob-2 {
+  width: 200px; height: 200px;
+  background: var(--lavender);
+  bottom: -60px; left: -60px;
+}
+.blob-3 {
+  width: 300px; height: 300px;
+  background: var(--mint);
+  top: -100px; left: -80px;
+}
+.blob-4 {
+  width: 220px; height: 220px;
+  background: var(--coral);
+  bottom: -70px; right: -70px;
+}
+
+/* ============================================================
+   PAGE 1 — TEXT AT TOP
+   ============================================================ */
+.top-text {
+  z-index: 2;
+  text-align: left;
+  width: 100%;
+  max-width: 480px;
+
+  /* Entrance animation */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+.top-label {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 var(--ink);
+  margin-bottom: 0.8rem;
+}
+
+.headline {
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+/* Animated highlight bar behind the emoji line */
+.highlight-wrap {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+.highlight-wrap::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 0;
+  height: 36%;
+  background: var(--yellow);
+  z-index: -1;
+  border-radius: 4px;
+  transition: width 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s;
+}
+
+/* Triggered when page is active */
+.active .top-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+.active .highlight-wrap::after {
+  width: 100%;
+}
+
+/* ============================================================
+   NEO-BRUTALIST PHOTO CARDS
+   ============================================================ */
+.card-wrapper {
+  position: relative;
+  z-index: 2;
+  width: min(280px, 72vw);
+  height: min(320px, 46vh);
+
+  /* Card entrance animation */
+  opacity: 0;
+  transform: scale(0.88) rotate(4deg);
+  transition: opacity 0.8s cubic-bezier(0.175,0.885,0.32,1.275) 0.25s,
+              transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275) 0.25s;
+}
+
+/* Big card for page 2 */
+.card-big {
+  width: min(320px, 82vw);
+  height: min(400px, 64vh);
+}
+
+/* Activated state */
+.active .card-wrapper {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Shadow layer (offset behind) */
+.card-shadow {
+  position: absolute;
+  inset: 0;
+  top: 12px;
+  left: 12px;
+  border-radius: 22px;
+  border: var(--border);
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+.shadow-yellow   { background: var(--yellow); }
+.shadow-lavender { background: var(--lavender); }
+
+/* Front frame */
+.card-frame {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  border: var(--border);
+  overflow: hidden;
+  z-index: 2;
+  padding: 10px;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.frame-cream { background: var(--cream); }
+.frame-mint  { background: var(--mint); }
+
+/* Image inside card */
+.card-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 2px solid var(--ink);
+  transition: transform 0.5s ease;
+  display: block;
+}
+
+/* Hover micro-interactions */
+.card-wrapper:hover .card-frame {
+  transform: translate(-4px, -4px);
+}
+.card-wrapper:hover .card-shadow {
+  transform: translate(4px, 4px);
+}
+.card-wrapper:hover .card-frame img {
+  transform: scale(1.03);
+}
+
+/* ============================================================
+   SWIPE UP BUTTON (bottom of page 1)
+   ============================================================ */
+.swipe-up-btn {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  z-index: 10;
+  outline: none;
+
+  /* Entrance animation */
+  opacity: 0;
+  transition: opacity 0.6s ease 0.9s;
+}
+.active .swipe-up-btn {
+  opacity: 1;
+}
+
+.swipe-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--ink);
+}
+
+.swipe-arrow {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatUp 2s ease-in-out infinite;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.swipe-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+.swipe-up-btn:hover .swipe-arrow {
+  background: var(--yellow);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* Float up animation */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  45%       { transform: translateY(-8px); }
+  65%       { transform: translateY(-4px); }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (min-width: 600px) {
+  .page { padding: 3rem 2rem; gap: 2rem; }
+  .top-text { max-width: 560px; }
+}
+
+@media (max-height: 600px) {
+  .card-wrapper {
+    height: min(220px, 40vh);
+  }
+  .card-big {
+    height: min(260px, 55vh);
+  }
+  .headline { font-size: 1.6rem; }
+}
